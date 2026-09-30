@@ -1,0 +1,28 @@
+# PURL configuration for http://purl.obolibrary.org/obo/testp
+
+idspace: TESTP
+base_url: /obo/testp
+
+products:
+- testp.owl: https://raw.githubusercontent.com/a-botas/testPprotege/main/testp.owl
+- testp.obo: https://raw.githubusercontent.com/a-botas/testPprotege/main/testp.obo
+
+term_browser: ontobee
+example_terms:
+- TESTP_0000000
+
+entries:
+
+- prefix: /releases/
+  replacement: https://raw.githubusercontent.com/a-botas/testPprotege/v
+
+- prefix: /tracker/
+  replacement: https://github.com/a-botas/testPprotege/issues
+
+- prefix: /about/
+  replacement: http://www.ontobee.org/ontology/TESTP?iri=http://purl.obolibrary.org/obo/
+
+## generic fall-through, serve direct from github by default
+- prefix: /
+  replacement: https://raw.githubusercontent.com/a-botas/testPprotege/main/
+
