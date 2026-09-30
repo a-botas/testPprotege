@@ -1,5 +1,5 @@
 site_name: testPprotege
 theme:
   name: material
-docs_dir: ./guthub/workflows/docs
+docs_dir: .github/workflows/docs
 site_dir: site
