@@ -3,3 +3,7 @@ theme:
   name: material
 docs_dir: docs
 site_dir: site
+nav:
+  - Home: index.md
+  - Terms: generated/terms.md
+  - Metrics: generated/metrics.md

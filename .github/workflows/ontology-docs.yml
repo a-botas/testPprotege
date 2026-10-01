@@ -1,0 +1,51 @@
+# Regenerates docs/generated/*.md from the ontology and republishes the docs site.
+# Kept separate from docs.yml / qc.yml because ODK manages (and may overwrite) those.
+name: Generate ontology docs
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'src/ontology/testp-edit.owl'     # <- your edit file
+      - 'src/scripts/generate_docs.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write   # commit the generated pages
+  actions: write    # trigger docs.yml afterwards
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    container: obolibrary/odkfull   # tip: use the same image tag as your qc.yml
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate pages from the ontology
+        run: |
+          mkdir -p docs/generated
+          robot export --input src/ontology/testp-edit.owl \
+            --header "ID|LABEL|definition|SubClass Of" \
+            --export docs/generated/terms.csv
+          robot measure --input src/ontology/testp-edit.owl \
+            --metrics extended --output docs/generated/metrics.tsv || echo "measure skipped"
+          python3 src/scripts/generate_docs.py
+          rm -f docs/generated/terms.csv docs/generated/metrics.tsv
+
+      - name: Commit and republish docs
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/generated
+          if git diff --cached --quiet; then
+            echo "No changes to generated docs."
+          else
+            git commit -m "Update generated ontology docs [skip ci]"
+            git push
+            # Pushes made with GITHUB_TOKEN do not trigger other workflows,
+            # so start the docs build explicitly.
+            gh workflow run docs.yml --repo "$GITHUB_REPOSITORY" --ref main
+          fi
