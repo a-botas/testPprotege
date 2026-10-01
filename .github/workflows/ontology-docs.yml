@@ -25,7 +25,7 @@ jobs:
         run: |
           mkdir -p docs/generated
           robot export --input src/ontology/testp-edit.owl \
-            --header "ID|LABEL|definition|SubClass Of" \
+            --header "ID|LABEL|SubClass Of" \
             --export docs/generated/terms.csv
           robot measure --input src/ontology/testp-edit.owl \
             --metrics extended --output docs/generated/metrics.tsv || echo "measure skipped"
