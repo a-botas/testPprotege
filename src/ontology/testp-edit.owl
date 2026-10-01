@@ -1,34 +1,49 @@
 Prefix(:=<http://purl.obolibrary.org/obo/testp.owl#>)
-Prefix(dce:=<http://purl.org/dc/elements/1.1/>)
 Prefix(owl:=<http://www.w3.org/2002/07/owl#>)
 Prefix(rdf:=<http://www.w3.org/1999/02/22-rdf-syntax-ns#>)
 Prefix(xml:=<http://www.w3.org/XML/1998/namespace>)
 Prefix(xsd:=<http://www.w3.org/2001/XMLSchema#>)
 Prefix(rdfs:=<http://www.w3.org/2000/01/rdf-schema#>)
-Prefix(dcterms:=<http://purl.org/dc/terms/>)
 
 
 Ontology(<http://purl.obolibrary.org/obo/testp.owl>
-
-
-
-Annotation(dcterms:description "None")
-Annotation(dcterms:license <https://creativecommons.org/licenses/unspecified>)
-Annotation(dcterms:title "Unified Test Project Ontology")
-
+Annotation(<http://purl.org/dc/terms/description> "None")
+Annotation(<http://purl.org/dc/terms/license> <https://creativecommons.org/licenses/unspecified>)
+Annotation(<http://purl.org/dc/terms/title> "Unified Test Project Ontology")
 
 Declaration(Class(<http://purl.obolibrary.org/obo/TESTP_0000000>))
-Declaration(AnnotationProperty(dcterms:description))
-Declaration(AnnotationProperty(dcterms:license))
-Declaration(AnnotationProperty(dcterms:title))
-
+Declaration(Class(<http://www.example.org/R8VWwRcikxCf3DP7o5AtSlh>))
+Declaration(ObjectProperty(<http://www.example.org/RmBwptjoK4JeFyqPBpKXSE>))
+Declaration(AnnotationProperty(<http://purl.org/dc/terms/description>))
+Declaration(AnnotationProperty(<http://purl.org/dc/terms/license>))
+Declaration(AnnotationProperty(<http://purl.org/dc/terms/title>))
 ############################
 #   Annotation Properties
 ############################
 
-AnnotationAssertion(rdfs:label dcterms:description "description")
-AnnotationAssertion(rdfs:label dcterms:license "license")
-AnnotationAssertion(rdfs:label dcterms:title "title")
+# Annotation Property: <http://purl.org/dc/terms/description> (description)
+
+AnnotationAssertion(rdfs:label <http://purl.org/dc/terms/description> "description")
+
+# Annotation Property: <http://purl.org/dc/terms/license> (license)
+
+AnnotationAssertion(rdfs:label <http://purl.org/dc/terms/license> "license")
+
+# Annotation Property: <http://purl.org/dc/terms/title> (title)
+
+AnnotationAssertion(rdfs:label <http://purl.org/dc/terms/title> "title")
+
+
+############################
+#   Object Properties
+############################
+
+# Object Property: <http://www.example.org/RmBwptjoK4JeFyqPBpKXSE> (relatesTo)
+
+AnnotationAssertion(rdfs:label <http://www.example.org/RmBwptjoK4JeFyqPBpKXSE> "relatesTo"@en)
+SubObjectPropertyOf(<http://www.example.org/RmBwptjoK4JeFyqPBpKXSE> owl:topObjectProperty)
+
+
 
 ############################
 #   Classes
@@ -37,6 +52,11 @@ AnnotationAssertion(rdfs:label dcterms:title "title")
 # Class: <http://purl.obolibrary.org/obo/TESTP_0000000> (root node)
 
 AnnotationAssertion(rdfs:label <http://purl.obolibrary.org/obo/TESTP_0000000> "root node"@en)
+
+# Class: <http://www.example.org/R8VWwRcikxCf3DP7o5AtSlh> (things)
+
+AnnotationAssertion(rdfs:label <http://www.example.org/R8VWwRcikxCf3DP7o5AtSlh> "things"@en)
+SubClassOf(<http://www.example.org/R8VWwRcikxCf3DP7o5AtSlh> <http://purl.obolibrary.org/obo/TESTP_0000000>)
 
 
 )
